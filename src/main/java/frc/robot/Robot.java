@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import com.ctre.phoenix6.SignalLogger;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -15,6 +16,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
+    SignalLogger.setPath("//media/sda1/");
     m_robotContainer = new RobotContainer();
   }
 
@@ -49,6 +51,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    SignalLogger.start();
+
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
@@ -58,7 +62,9 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {}
 
   @Override
-  public void teleopExit() {}
+  public void teleopExit() {
+    SignalLogger.stop();
+  }
 
   @Override
   public void testInit() {
