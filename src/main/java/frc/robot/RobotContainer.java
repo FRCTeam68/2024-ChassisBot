@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+
 import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
@@ -12,8 +15,11 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.generated.TunerConstants;
+import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
+import org.littletonrobotics.junction.networktables.LoggedDashboardNumber;
 
 public class RobotContainer {
   private double MaxSpeed = 6; // 6 meters per second desired top speed
@@ -31,14 +37,37 @@ public class RobotContainer {
   private final SwerveRequest.RobotCentric forwardStraight = new SwerveRequest.RobotCentric().withDriveRequestType(DriveRequestType.OpenLoopVoltage);
   private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
 
-  /* Path follower */
-  //private Command runAuto = drivetrain.getAutoPath("Straight 2m test1");
-  //private Command runAuto = drivetrain.getAutoPath("Straight 4m test1");
-  //private Command runAuto = drivetrain.getAutoPath("Straight 2m rotate 180 CCW test1");
-  private Command runAuto = drivetrain.getAutoPath("Straight 4m rotate 180 CCW test1");
+  // Dashboard inputs
+  private final LoggedDashboardChooser<Command> autoChooser;
 
+  //private final LoggedDashboardNumber flywheelSpeedInput =
+  //    new LoggedDashboardNumber("Flywheel Speed", 1500.0);
+  
   private final Telemetry logger = new Telemetry(MaxSpeed);
+  
 
+  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  public RobotContainer() {
+  
+  // Set up auto routines
+  autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
+  
+    // Set up feedforward characterization
+  autoChooser.addOption("Straight 2m", drivetrain.getAutoPath("Straight 2m test1"));
+  autoChooser.addOption("Straight 4m", drivetrain.getAutoPath("Straight 4m test1"));
+  autoChooser.addOption("Straight 2m rotate 180 CCW ", drivetrain.getAutoPath("Straight 2m rotate 180 CCW  test1"));
+  autoChooser.addOption("Straight 4m rotate 180 CCW ", drivetrain.getAutoPath("Straight 4m rotate 180 CCW  test1"));
+  
+  
+  configureBindings();
+  }
+  
+  /**
+   * Use this method to define your button->command mappings. Buttons can be created by
+   * instantiating a {@link GenericHID} or one of its subclasses ({@link
+   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
+   * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+   */
   private void configureBindings() {
     drivetrain.setDefaultCommand( // Drivetrain will execute this command periodically
         drivetrain.applyRequest(() -> drive.withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive forward with
@@ -63,12 +92,12 @@ public class RobotContainer {
     joystick.pov(180).whileTrue(drivetrain.applyRequest(() -> forwardStraight.withVelocityX(-0.5).withVelocityY(0)));
   }
 
-  public RobotContainer() {
-    configureBindings();
-  }
-
+  /**
+   * Use this to pass the autonomous command to the main {@link Robot} class.
+   *
+   * @return the command to run in autonomous
+   */
   public Command getAutonomousCommand() {
-    /* First put the drivetrain into auto run mode, then run the auto */
-    return runAuto;
+    return autoChooser.get();
   }
 }

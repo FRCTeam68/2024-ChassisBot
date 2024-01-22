@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Color8Bit;
+import org.littletonrobotics.junction.Logger;
 
 public class Telemetry {
     private final double MaxSpeed;
@@ -100,6 +101,11 @@ public class Telemetry {
         velocityY.set(velocities.getY());
         odomFreq.set(1.0 / state.OdometryPeriod);
 
+        Logger.recordOutput("Drive/Speed", velocities.getNorm());
+        Logger.recordOutput("Drive/velocityX", velocities.getX());
+        Logger.recordOutput("Drive/velocityY", velocities.getY());
+        Logger.recordOutput("Drive/odomFreq", 1.0 / state.OdometryPeriod);
+
         /* Telemeterize the module's states */
         for (int i = 0; i < 4; ++i) {
             m_moduleSpeeds[i].setAngle(state.ModuleStates[i].angle);
@@ -107,9 +113,14 @@ public class Telemetry {
             m_moduleSpeeds[i].setLength(state.ModuleStates[i].speedMetersPerSecond / (2 * MaxSpeed));
 
             SmartDashboard.putData("Module " + i, m_moduleMechanisms[i]);
+            Logger.recordOutput("Drive/Module" + i, m_moduleMechanisms[i]);
         }
 
         SignalLogger.writeDoubleArray("odometry", new double[] {pose.getX(), pose.getY(), pose.getRotation().getDegrees()});
         SignalLogger.writeDouble("odom period", state.OdometryPeriod, "seconds");
+
+        
+        Logger.recordOutput("Drive/Pose", pose);
+
     }
 }
