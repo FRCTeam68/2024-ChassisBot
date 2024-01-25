@@ -55,8 +55,8 @@ public class RobotContainer {
     // Set up feedforward characterization
   autoChooser.addOption("Straight 2m", drivetrain.getAutoPath("Straight 2m test1"));
   autoChooser.addOption("Straight 4m", drivetrain.getAutoPath("Straight 4m test1"));
-  autoChooser.addOption("Straight 2m rotate 180 CCW ", drivetrain.getAutoPath("Straight 2m rotate 180 CCW  test1"));
-  autoChooser.addOption("Straight 4m rotate 180 CCW ", drivetrain.getAutoPath("Straight 4m rotate 180 CCW  test1"));
+  autoChooser.addOption("Straight 2m rotate 180 CCW ", drivetrain.getAutoPath("Straight 2m rotate 180 CCW test1"));
+  autoChooser.addOption("Straight 4m rotate 180 CCW ", drivetrain.getAutoPath("Straight 4m rotate 180 CCW test1"));
   
   
   configureBindings();
@@ -88,8 +88,8 @@ public class RobotContainer {
     }
     drivetrain.registerTelemetry(logger::telemeterize);
 
-    joystick.pov(0).whileTrue(drivetrain.applyRequest(() -> forwardStraight.withVelocityX(0.5).withVelocityY(0)));
-    joystick.pov(180).whileTrue(drivetrain.applyRequest(() -> forwardStraight.withVelocityX(-0.5).withVelocityY(0)));
+    joystick.pov(0).whileTrue(drivetrain.applyRequest(() -> forwardStraight.withVelocityX(-0.5).withVelocityY(0)));
+    joystick.pov(180).whileTrue(drivetrain.applyRequest(() -> forwardStraight.withVelocityX(0.5).withVelocityY(0)));
   }
 
   /**

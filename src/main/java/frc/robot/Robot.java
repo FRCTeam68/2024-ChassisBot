@@ -53,16 +53,17 @@ public class Robot extends LoggedRobot {
     // See http://bit.ly/3YIzFZ6 for more information on timestamps in AdvantageKit.
     // Logger.disableDeterministicTimestamps()
 
+
+
+
+    SignalLogger.setPath("//media/sda1/");
+    SignalLogger.start();
+    
     // Start AdvantageKit logger
     Logger.start();
 
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our autonomous chooser on the dashboard.
-
-    SignalLogger.setPath("//media/sda1/");
-    SignalLogger.start();
-    //SignalLogger.stop();
-
     m_robotContainer = new RobotContainer();
 
     m_robotContainer.drivetrain.getDaqThread().setThreadPriority(99);
