@@ -112,10 +112,10 @@ public class Telemetry {
             m_moduleDirections[i].setAngle(state.ModuleStates[i].angle);
             m_moduleSpeeds[i].setLength(state.ModuleStates[i].speedMetersPerSecond / (2 * MaxSpeed));
 
-            SmartDashboard.putData("Module " + i, m_moduleMechanisms[i]);
-            Logger.recordOutput("ModuleStates" + i, state.ModuleStates);
-            Logger.recordOutput("ModuleTargetStates" + i, state.ModuleTargets);
+            //SmartDashboard.putData("Module " + i, m_moduleMechanisms[i]);
         }
+        Logger.recordOutput("Drive/ModuleStates", state.ModuleStates);
+        Logger.recordOutput("Drive/ModuleTargetStates", state.ModuleTargets);
 
         SignalLogger.writeDoubleArray("odometry", new double[] {pose.getX(), pose.getY(), pose.getRotation().getDegrees()});
         SignalLogger.writeDouble("odom period", state.OdometryPeriod, "seconds");
