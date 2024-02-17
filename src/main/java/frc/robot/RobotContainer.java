@@ -16,8 +16,10 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.generated.TunerConstants;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
@@ -51,13 +53,26 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
   
-  // Set up auto routines
-  autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
-  
+        // Subsystem initialization
+        // Register Named Commands
+        NamedCommands.registerCommand("shoot", Commands.runOnce(()->SmartDashboard.putBoolean("shoot", true)));
+        NamedCommands.registerCommand("shoot2", Commands.runOnce(()->SmartDashboard.putBoolean("shoot", true)));
+        NamedCommands.registerCommand("wait2s", new WaitCommand(2.00));
+                // Do all other initialization
 
-  
-  configureBindings();
-  }
+
+
+        configureBindings();
+        SmartDashboard.putBoolean("shoot", false);
+        SmartDashboard.putBoolean("shoot2", false);
+        SmartDashboard.putBoolean("shoot3", true);
+        SmartDashboard.putBoolean("wait2s", true);
+
+        // Set up auto routines
+        autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
+    }
+ 
+
   
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -97,4 +112,6 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     return autoChooser.get();
   }
+
+
 }
