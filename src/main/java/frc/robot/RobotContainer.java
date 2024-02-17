@@ -54,12 +54,7 @@ public class RobotContainer {
   // Set up auto routines
   autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
   
-    // Set up feedforward characterization
-  autoChooser.addOption("Straight 2m", drivetrain.getAutoPath("Straight 2m test1"));
-  autoChooser.addOption("Straight 4m", drivetrain.getAutoPath("Straight 4m test1"));
-  autoChooser.addOption("Straight 2m rotate 180 CCW ", drivetrain.getAutoPath("Straight 2m rotate 180 CCW test1"));
-  autoChooser.addOption("Straight 4m rotate 180 CCW ", drivetrain.getAutoPath("Straight 4m rotate 180 CCW test1"));
-  
+
   
   configureBindings();
   }
