@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.0,
-      "y": 6.44
+      "x": 0.7336934388833163,
+      "y": 4.387391197585246
     },
-    "rotation": 0
+    "rotation": -60.10109816138545
   },
   "command": {
     "type": "sequential",
@@ -14,18 +14,12 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Straight 2m"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Go Back no Turn"
+            "pathName": "Amp - Middle 5"
           }
         }
       ]
     }
   },
-  "folder": "Tests",
+  "folder": null,
   "choreoAuto": false
 }

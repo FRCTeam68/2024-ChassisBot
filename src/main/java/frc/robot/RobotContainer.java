@@ -56,8 +56,9 @@ public class RobotContainer {
         // Subsystem initialization
         // Register Named Commands
         NamedCommands.registerCommand("shoot", Commands.runOnce(()->SmartDashboard.putBoolean("shoot", true)));
-        NamedCommands.registerCommand("shoot2", Commands.runOnce(()->SmartDashboard.putBoolean("shoot", true)));
+        NamedCommands.registerCommand("shoot2", Commands.runOnce(()->SmartDashboard.putBoolean("shoot2", true)));
         NamedCommands.registerCommand("wait2s", new WaitCommand(2.00));
+        NamedCommands.registerCommand("intake", Commands.runOnce(()->SmartDashboard.putBoolean("intake", true)));
                 // Do all other initialization
 
 
@@ -65,8 +66,8 @@ public class RobotContainer {
         configureBindings();
         SmartDashboard.putBoolean("shoot", false);
         SmartDashboard.putBoolean("shoot2", false);
-        SmartDashboard.putBoolean("shoot3", true);
-        SmartDashboard.putBoolean("wait2s", true);
+        SmartDashboard.putBoolean("intake", false);
+        SmartDashboard.putBoolean("wait2s", false);
 
         // Set up auto routines
         autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());

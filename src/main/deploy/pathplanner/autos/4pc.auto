@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.0,
-      "y": 6.44
+      "x": 0.7336934388833163,
+      "y": 4.348392164717821
     },
-    "rotation": 0
+    "rotation": -56.68936917543914
   },
   "command": {
     "type": "sequential",
@@ -14,18 +14,24 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Straight 2m"
+            "pathName": "Source - Source Note"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Go Back no Turn"
+            "pathName": "New Path"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "New New Path"
           }
         }
       ]
     }
   },
-  "folder": "Tests",
+  "folder": null,
   "choreoAuto": false
 }
