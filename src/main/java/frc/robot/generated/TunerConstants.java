@@ -49,14 +49,14 @@ public class TunerConstants {
     private static final double kCoupleRatio = 0;
 
     private static final double kDriveGearRatio = 5.88; 
-    private static final double kSteerGearRatio = 1;
+    private static final double kSteerGearRatio = 12.8;
     private static final double kWheelRadiusInches = 2;
 
     private static final boolean kSteerMotorReversed = false;
     private static final boolean kInvertLeftSide = false;
     private static final boolean kInvertRightSide = true;
 
-    private static final String kCANbusName = "DRIVEbus";
+    private static final String kCANbusName = "rio";
     private static final int kPigeonId = 50;
 
 
